@@ -1,14 +1,16 @@
 {
   "scripts": {
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:dev": "vuepress dev blog",
+    "docs:build": "vuepress build blog"
   },
   "name": "vuepress",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
+    "@vuepress/plugin-back-to-top": "^1.9.9",
     "@vuepress/plugin-blog": "^1.9.4",
+    "@vuepress/theme-blog": "^2.3.3",
     "vuepress": "^1.9.9"
   }
 }

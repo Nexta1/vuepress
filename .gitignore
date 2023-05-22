@@ -32,7 +32,7 @@ build/
 ### VS Code ###
 .vscode/
 
-docs/.vuepress/dist/
+blog/.vuepress/dist/
 node_modules/
 .DS_Store
 .idea/
