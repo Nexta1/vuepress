@@ -1,6 +1,10 @@
 module.exports = {
   title: "知识",
+  port: 8002,
   description: "Just playing around",
+  markdown: {
+    lineNumbers: true,
+  },
   plugins: [
     [
       "@vuepress/blog",
@@ -29,7 +33,6 @@ module.exports = {
           {
             text: "常用工具",
             items: [
-              { text: "Markdown", link: "/tool/markdown/" },
               { text: "Git", link: "/tool/git/" },
               { text: "Brew", link: "/tool/brew/" },
             ],
@@ -37,18 +40,19 @@ module.exports = {
           {
             text: "Node tools",
             items: [
-              { text: "npm", link: "/tool/node/" },
-              { text: "yarn", link: "/tool/node/" },
+              { text: "npm", link: "/tool/node/yarn.md" },
+              { text: "yarn", link: "/tool/node/npm.md" },
             ],
           },
         ],
       },
       {
-        text: "Java",
-        ariaLabel: "Language Menu",
+        text: "More",
         items: [
-          { text: "MarkDown", link: "/tool/markdown/" },
-          { text: "Japanese", link: "/language/japanese/" },
+          {
+            text: "Java",
+            items: [{ text: "并发编程", link: "/more/concurrent.md" }],
+          },
         ],
       },
       {
@@ -65,7 +69,7 @@ module.exports = {
           {
             text: "常用集成",
             items: [
-              { text: "JPA", link: "/spring/springDataJpa.md" },
+              { text: "JPA", link: "/spring/jpa.md" },
               { text: "Security", link: "/spring/SpringSecurity.md" },
             ],
           },
@@ -114,7 +118,7 @@ module.exports = {
           {
             text: "Spring",
             items: [
-              { text: "JPA", link: "/spring/springDataJpa.md" },
+              { text: "JPA", link: "/spring/jpa.md" },
               { text: "Security", link: "/spring/SpringSecurity.md" },
             ],
           },
@@ -123,5 +127,4 @@ module.exports = {
       { text: "ChatGPT", link: "https://ai.com" },
     ],
   },
-  port: 8002,
 };

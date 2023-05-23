@@ -3,7 +3,7 @@ home: true
 heroText: 文档知识
 tagline: 决心决定行动，行动决定成就。
 actionText: 快速提高 →
-actionLink: /spring/springDataJpa.md
+actionLink: /spring/jpa.md
 features:
   - title: 记录知识
     details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
