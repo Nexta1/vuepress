@@ -35,6 +35,8 @@ module.exports = {
             items: [
               { text: "Git", link: "/tool/git/" },
               { text: "Brew", link: "/tool/brew/" },
+              { text: "Markdown", link: "/tool/markdown/" },
+              { text: "Vim", link: "/tool/vim.md" },
             ],
           },
           {
@@ -46,23 +48,14 @@ module.exports = {
           },
         ],
       },
+
       {
-        text: "More",
+        text: "Java",
         items: [
           {
-            text: "Java",
-            items: [{ text: "并发编程", link: "/more/concurrent.md" }],
-          },
-        ],
-      },
-      {
-        text: "Spring",
-        items: [
-          {
-            text: "基础知识",
+            text: "Spring",
             items: [
               { text: "Spring", link: "/spring/spring.md" },
-              { text: "SpringMvc", link: "/spring/springmvc.md" },
               { text: "SpringBoot", link: "/spring/springboot.md" },
             ],
           },
@@ -70,33 +63,50 @@ module.exports = {
             text: "常用集成",
             items: [
               { text: "JPA", link: "/spring/jpa.md" },
+              { text: "Cache", link: "/spring/cache.md" },
               { text: "Security", link: "/spring/SpringSecurity.md" },
+              { text: "Mybatis", link: "/spring/mybatis.md" },
+              { text: "Swagger", link: "/spring/swagger.md" },
             ],
+          },
+          {
+            text: "基础知识",
+            items: [{ text: "常用类", link: "/spring/java/常用类.md" }],
           },
         ],
       },
       {
         text: "Js",
-        ariaLabel: "Language Menu",
-        items: [
-          { text: "MarkDown", link: "/tool/markdown/" },
-          { text: "Japanese", link: "/language/japanese/" },
-        ],
+        items: [{ text: "Nuxt", link: "/js/nuxt.md" }],
       },
       {
         text: "Server",
-        ariaLabel: "Language Menu",
         items: [
-          { text: "Docker", link: "/tool/markdown/" },
-          { text: "Linux", link: "/language/japanese/" },
+          {
+            text: "The server",
+            items: [
+              { text: "Docker", link: "/service/docker.md" },
+              { text: "Linux", link: "/service/linux.md" },
+            ],
+          },
+
+          {
+            text: "Database",
+            items: [
+              { text: "Mysql", link: "/db/mysql.md" },
+              { text: "Redis", link: "/db/redis.md" },
+            ],
+          },
         ],
       },
+
       {
-        text: "Database",
-        ariaLabel: "Language Menu",
+        text: "More",
         items: [
-          { text: "Mysql", link: "/db/mysql.md" },
-          { text: "Redis", link: "/db/redis.md" },
+          {
+            text: "Java",
+            items: [{ text: "并发编程", link: "/more/concurrent.md" }],
+          },
         ],
       },
       {
