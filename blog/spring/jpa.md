@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # JPA
 
 ## 核心概念

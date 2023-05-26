@@ -1,3 +1,7 @@
+---
+sidebar: auto
+---
+
 # SpringSecurity 的工作流程
 
 1. 当用户提交他们的用户名和密码时，通过从实例中提取用户名和密码来UsernamePasswordAuthenticationFilter创建一个UsernamePasswordAuthenticationToken，这是一种类型。

@@ -18,12 +18,23 @@ module.exports = {
       },
     ],
     "@vuepress/back-to-top",
+    [
+      "vuepress-plugin-code-copy",
+      {
+        selector: 'div[class*="language-"] pre',
+        align: "bottom",
+        color: "#21CAA6",
+      },
+    ],
   ],
 
   themeConfig: {
     lastUpdated: "Last Updated", // string | boolean
     displayAllHeaders: true, // 默认值：false
-    sidebar: "auto",
+    sidebar: {
+      "/spring/": ["cache", "spring-redis", "Jackson"],
+      "/java/": ["common-classes"],
+    },
     logo: "/logo.webp",
     nav: [
       { text: "Home", link: "/" },
@@ -67,11 +78,12 @@ module.exports = {
               { text: "Security", link: "/spring/SpringSecurity.md" },
               { text: "Mybatis", link: "/spring/mybatis.md" },
               { text: "Swagger", link: "/spring/swagger.md" },
+              { text: "Jackson", link: "/spring/Jackson.md" },
             ],
           },
           {
             text: "基础知识",
-            items: [{ text: "常用类", link: "/spring/java/常用类.md" }],
+            items: [{ text: "常用类", link: "/java/common-classes.md" }],
           },
         ],
       },
@@ -106,6 +118,12 @@ module.exports = {
           {
             text: "Java",
             items: [{ text: "并发编程", link: "/more/concurrent.md" }],
+          },
+          {
+            text: "DevOps",
+            items: [
+              { text: "Github-actions", link: "/more/github-actions.md" },
+            ],
           },
         ],
       },
