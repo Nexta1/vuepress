@@ -60,8 +60,6 @@ GitHub Actions 是一种持续集成和持续交付 (CI/CD) 平台，可用于�
 Must not run with sudo解决方案
 
 ```shell
-RUNNER_ALLOW_RUNASROOT="1" ./config.sh --url https://github.com/Nexta1/vuepress --token AZWYLDYEJQIZEZJDAT5DET3EOMY3Q
-RUNNER_ALLOW_RUNASROOT="1"  ./run.sh
 runs-on: self-hosted
 ```
 
