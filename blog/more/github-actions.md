@@ -57,8 +57,6 @@ GitHub Actions 是一种持续集成和持续交付 (CI/CD) 平台，可用于�
 
 [选择项目](https://github.com/Nexta1/vuepress/settings/actions/runners/new)
 
-Must not run with sudo解决方案
-
 ```shell
 runs-on: self-hosted
 ```
@@ -66,9 +64,67 @@ runs-on: self-hosted
 运行服务
 
 ```shell
+./run.sh
 sudo ./svc.sh install
 sudo ./svc.sh start
 sudo ./svc.sh status
 sudo ./svc.sh stop
 sudo ./svc.sh uninstall
 ```
+
+以下是一个示例，展示如何将 GitHub Actions Runner 配置为持续运行的服务并自动重启。请注意，这是一个基本示例，你可能需要根据你的具体环境和需求进行适当的调整。
+
+1. 创建启动脚本：
+    - 创建一个启动脚本，例如 `start_runner.sh`，内容如下：
+
+```bash
+#!/bin/bash
+cd /path/to/runner/directory
+./config.sh --url <repository-url> --token <access-token>
+./run.sh
+```
+
+- 将 `<repository-url>` 替换为你的仓库 URL，`<access-token>` 替换为 GitHub Personal Access Token。
+
+2. 创建 systemd 服务配置文件：
+    - 创建一个服务配置文件，例如 `github-runner.service`，内容如下：
+
+```
+[Unit]
+Description=GitHub Actions Runner
+After=network.target
+
+[Service]
+ExecStart=/bin/bash /path/to/start_runner.sh
+WorkingDirectory=/path/to/runner/directory
+Restart=always
+
+[Install]
+WantedBy=default.target
+```
+
+- 将 `/path/to/start_runner.sh` 和 `/path/to/runner/directory` 替换为适当的路径。
+
+3. 注册为系统服务：
+    - 将服务配置文件复制到 `/etc/systemd/system/` 目录下。
+    - 执行以下命令启动 Runner 服务并设置为开机自启：
+
+```bash
+sudo systemctl start github-runner
+sudo systemctl enable github-runner
+```
+
+- 现在 Runner 将作为一个系统服务持续运行，并在系统启动时自动启动。
+
+4. 监控和日志记录：
+    - 可以使用以下命令查看 Runner 服务的状态和日志输出：
+
+```bash
+sudo systemctl status github-runner
+journalctl -u github-runner
+```
+
+- 这些命令将显示 Runner 服务的当前状态和相关日志。
+
+请注意，以上仅是一个基本示例，你可能需要根据你的环境和需求进行适当的调整。确保参考操作系统的文档和 GitHub Actions Runner
+的文档以获取更详细的指南和最佳实践。
