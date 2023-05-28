@@ -25,7 +25,7 @@ ObjectMapper objectMapper=new ObjectMapper();
 
 ```java
 ObjectMapper objectMapper=new ObjectMapper();
-        MyObject obj=objectMapper.readValue(json,MyObject.class);
+        MyObject obj=objectMapper.readValue(json,MyObject.class);¬
 ```
 
 ### 3. 自定义配置

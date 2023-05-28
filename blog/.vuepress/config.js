@@ -32,8 +32,9 @@ module.exports = {
     lastUpdated: "Last Updated", // string | boolean
     displayAllHeaders: true, // 默认值：false
     sidebar: {
-      "/spring/": ["cache", "spring-redis", "Jackson"],
+      "/spring/": ["cache", "spring-redis"],
       "/java/": ["common-classes"],
+      "/tool/": ["vim", "curl", "git", "brew", "markdown", "yarn", "npm"],
     },
     logo: "/logo.webp",
     nav: [
@@ -44,17 +45,18 @@ module.exports = {
           {
             text: "常用工具",
             items: [
-              { text: "Git", link: "/tool/git/" },
-              { text: "Brew", link: "/tool/brew/" },
-              { text: "Markdown", link: "/tool/markdown/" },
+              { text: "Git", link: "/tool/git" },
+              { text: "Brew", link: "/tool/brew" },
+              { text: "Markdown", link: "/tool/markdown" },
               { text: "Vim", link: "/tool/vim.md" },
+              { text: "Curl", link: "/tool/curl.md" },
             ],
           },
           {
             text: "Node tools",
             items: [
-              { text: "npm", link: "/tool/node/yarn.md" },
-              { text: "yarn", link: "/tool/node/npm.md" },
+              { text: "npm", link: "/tool/yarn.md" },
+              { text: "yarn", link: "/tool/npm.md" },
             ],
           },
         ],
@@ -124,6 +126,10 @@ module.exports = {
             items: [
               { text: "Github-actions", link: "/more/github-actions.md" },
             ],
+          },
+          {
+            text: "Tech",
+            link: "/more/technology.md",
           },
         ],
       },

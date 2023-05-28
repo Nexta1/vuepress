@@ -1,0 +1,25 @@
+name: deploy
+run-name: ${{ github.actor }}  release markdown
+concurrency:
+  group: production
+  cancel-in-progress: true
+push:
+  branches:
+    - master
+jobs:
+  DEPLOYMENT:
+    name: deploy
+    runs-on: [ self-hosted, linux, X64 ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Docs
+        run: npm run docs:build
+
+      - name: Deploy Docs
+        run: |
+          sudo cp -r blog/.vuepress/dist /var/www
