@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy Docs
         run: |
-          sudo cp -r blog/.vuepress/dist /var/www
+          cp -r blog/.vuepress/dist /var/www
