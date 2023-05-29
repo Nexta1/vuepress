@@ -14,6 +14,11 @@ java.time.LocalTime：LocalTime类表示一个时间，只包含时、分、秒�
 
 java.time.LocalDateTime：LocalDateTime类表示日期和时间，包含年、月、日、时、分、秒的信息，但没有时区。
 
+### TimeUnit
+
+TimeUnit 类提供了一些常见的方法，用于在不同的时间单位之间进行转换，如 toNanos(long duration)、toMicros(long duration)
+、toMillis(long duration)、toSeconds(long duration)、toMinutes(long duration)、toHours(long duration)、toDays(long duration)。
+
 ```java
 public class DateTimeExample {
 

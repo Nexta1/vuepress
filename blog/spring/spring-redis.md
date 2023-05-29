@@ -49,24 +49,34 @@
 
 ## RedisTemplate
 
-RedisTemplate它的大部分操作都使用基于 Java 的序列化程序。这意味着模板写入或读取的任何对象都通过 Java 进行序列化和反序列化
+RedisTemplate它的大部分操作都使用基于 Java 的序列化程序。这意味着模板写入或读取的任何对象都通过 Java 进行序列化和反序列化。
 
-```java
+如果你没有显式配置 RedisTemplate，Spring 会尝试自动配置一个默认的 RedisTemplate。默认情况下，Spring Boot 会自动配置一个
+RedisTemplate，并将其使用的序列化器设置为`JdkSerializationRedisSerializer`。
+
+然而，如果你需要自定义序列化器、连接工厂或其他 RedisTemplate 的属性，那么你需要显式配置 RedisTemplate，并将其注入到 Spring
+容器中。这样可以确保 RedisTemplate 按照你的需求进行配置和使用。
+
+```java  
 
 @Configuration
-class MyConfig {
-
-    @Bean
-    LettuceConnectionFactory redisConnectionFactory() {
-        return new LettuceConnectionFactory();
-    }
+public class RedisConfig implements CachingConfigurer {
 
     @Bean
     RedisTemplate<String, String> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
-        RedisTemplate<String, String> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
-        return template;
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(redisConnectionFactory);
+
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+
+
+        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        redisTemplate.setHashValueSerializer(new GenericJackson2JsonRedisSerializer());
+
+        redisTemplate.afterPropertiesSet();
+        return redisTemplate;
     }
 }
 
@@ -74,6 +84,21 @@ class MyConfig {
 ```
 
 ## 序列化
+
+基于RedisSerializer
+在 Redis 中，可以使用多种序列化方式对数据进行序列化和反序列化。以下是一些常见的序列化方式：
+
+1. StringRedisSerializer：将对象序列化为字符串，适用于存储简单的字符串类型数据。
+
+2. GenericJackson2JsonRedisSerializer：使用 Jackson 库将对象序列化为 JSON 字符串，适用于存储复杂的对象和数据结构。它支持多种数据类型，具有良好的可读性和可扩展性。
+
+3. JdkSerializationRedisSerializer：使用 Java 原生的序列化机制将对象序列化为字节数组，适用于存储 Java
+   对象。但它的序列化结果比较庞大，效率相对较低。
+
+4. OxmSerializer：用于对象与 XML 之间的序列化，使用 Spring 的 O/X Mapping（OXM）模块实现。
+
+可以根据需求选择适当的序列化方式。通常情况下，推荐使用 JSON
+序列化方式，如GenericJackson2JsonRedisSerializer，因为它支持多种数据类型，并且具有较好的可读性和可扩展性。
 
 ## Redis Sentinel
 
