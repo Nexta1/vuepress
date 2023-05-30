@@ -1,4 +1,26 @@
+---
+sidebar: auto
+---
+
 # Redis
+
+## 配置
+
+```shell
+redis-cli
+INFO SERVER
+```
+
+```shell
+# 允许任何主机连接、访问
+bind 127.0.0.1 改为 bind 0.0.0.0
+ 
+# 关闭保护模式
+protected-mode yes 改为 protected-mode no
+ 
+# 允许启动后在后台运行，即关闭命令行窗口后仍能运行 docker -d 不用
+daemonize no 改为 daemonize yes 
+```
 
 ## Redis persistence
 
