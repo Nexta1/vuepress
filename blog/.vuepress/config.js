@@ -81,6 +81,7 @@ module.exports = {
               { text: "Mybatis", link: "/spring/mybatis.md" },
               { text: "Swagger", link: "/spring/swagger.md" },
               { text: "Jackson", link: "/spring/Jackson.md" },
+              { text: "Valid", link: "/spring/Valid.md" },
             ],
           },
           {
