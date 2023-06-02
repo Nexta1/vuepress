@@ -36,6 +36,63 @@ FLUSH PRIVILEGES;
 REVOKE privileges ON database_name.table_name FROM 'username'@'localhost';
 ```
 
+## 日志
+
+MySQL 提供了多种类型的日志，用于记录数据库服务器的活动和错误信息。下面是几种常见的 MySQL 日志类型及其介绍：
+
+1. 错误日志（Error Log）：
+   错误日志记录了 MySQL 服务器在运行过程中发生的错误和警告信息，包括启动和关闭过程中的错误、查询执行错误、连接问题等。错误日志对于排查和解决数据库故障非常重要。
+2. 查询日志（General Query Log）：
+   查询日志记录了所有的客户端查询语句，包括 SELECT、INSERT、UPDATE、DELETE 等语句。查询日志可以用于分析和优化查询性能，但需要注意，启用查询日志会对数据库性能产生一定的影响。
+3. 慢查询日志（Slow Query Log）：
+   慢查询日志记录了执行时间超过预设阈值的查询语句，通常用来识别数据库中执行时间较长的查询语句。慢查询日志对于优化数据库性能非常有用，可以帮助开发人员找出需要优化的查询。
+4. 二进制日志（Binary Log）：
+   二进制日志记录了对数据库进行的所有更改操作，如插入、更新、删除等，以二进制格式保存。二进制日志可以用于数据复制、灾难恢复和故障恢复等操作。
+5. 事务日志（Transaction Log）：
+   事务日志（也称为重做日志或事务日志）记录了对数据库进行的事务操作，以确保数据的一致性和持久性。事务日志可以在数据库崩溃或断电后恢复数据的完整性。
+6. 慢查询日志（Slow Query Log）：
+   慢查询日志记录了执行时间超过预设阈值的查询语句，通常用来识别数据库中执行时间较长的查询语句。慢查询日志对于优化数据库性能非常有用，可以帮助开发人员找出需要优化的查询。
+   这些日志可以通过 MySQL 配置文件中的相应参数进行启用或配置。每个日志类型都有其特定的用途，可以根据需求选择启用并分析相应的日志内容。
+
+```shell
+ show variables like '%general%'
+
+```
+
+```shell
+log_error=/var/log/mysql/error.log
+log_error_verbosity=3
+#查询日志
+general_log=ON
+general_log_file=/var/log/mysql/general.log
+#慢查询
+slow_query_log=ON
+slow_query_log_file=/var/log/mysql/slow.log
+long_query_time=5
+#二进制
+log-bin=mysql-bin
+binlog_stmt_cache_size = 1M
+max_binlog_size = 128M
+```
+
+## mysqladmin
+
+`mysqladmin` 是 MySQL 提供的一个管理工具，用于执行各种管理任务和操作。除了一些常见的管理任务外，`mysqladmin`
+还提供了许多其他有用的选项和功能。以下是一些常用的 `mysqladmin` 命令：
+
+1. `mysqladmin ping`：检查与 MySQL 服务器的连接是否正常。
+2. `mysqladmin status`：显示 MySQL 服务器的当前状态，包括运行时间、连接数、线程信息等。
+3. `mysqladmin processlist`：显示当前正在运行的 MySQL 进程列表。
+4. `mysqladmin shutdown`：关闭 MySQL 服务器。
+5. `mysqladmin create database_name`：创建一个新的数据库。
+6. `mysqladmin drop database_name`：删除指定的数据库。
+7. `mysqladmin reload`：重新加载 MySQL 配置文件，使新的配置生效。
+8. `mysqladmin variables`：显示 MySQL 服务器的当前配置变量。
+9. `mysqladmin extended-status`：显示 MySQL 服务器的详细状态信息，包括各种计数器和指标。
+10. `mysqladmin flush-xxx`：执行不同类型的刷新操作，如 `flush-logs`、`flush-privileges`、`flush-tables` 等。
+    这只是一些常见的 `mysqladmin` 命令示例，`mysqladmin` 支持许多其他选项和功能，你可以通过运行 `mysqladmin --help` 或参考
+    MySQL 官方文档以获取更多详细信息和用法示例。
+
 ## 对比
 
 MySQL 8与MySQL 5.7相比有以下几个区别和改进：

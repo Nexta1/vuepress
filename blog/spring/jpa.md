@@ -65,7 +65,7 @@ findBy、deleteBy）以及属性表达式来构建查询方法。
 ```yaml
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/mydatabase
+    url: jdbc:mysql://localhost:3306/database
     username: root
     password: password
   jpa:
@@ -73,10 +73,7 @@ spring:
     hibernate:
       ddl-auto: update
       naming:
-      #      下划线
-      physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-    #      驼峰命名
-    #      physical-strategy:  org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
     scan-package: com.example.domain
 ```
