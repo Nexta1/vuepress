@@ -126,6 +126,56 @@ CrudRepository.save(…)。它通过使用底层 JPA 来持久化或合并给定
 | `@NamedNativeQuery`   | 定义命名本地查询，用于在实体类上声明自定义的本地查询语句      |
 | `@NamedNativeQueries` | 用于在实体类上定义多个命名本地查询                 |
 
+除了 `@PrePersist` 和 `@PreUpdate` 注解，JPA 还提供了其他一些常用的生命周期回调注解，用于在实体对象的生命周期中执行自定义操作。以下是一些常用的注解：
+
+| 注解               | 描述                                                           |
+|------------------|--------------------------------------------------------------|
+| `@PostLoad`      | 标记一个方法，在从数据库加载实体对象后自动调用该方法。可以在该方法中执行一些后处理操作，如数据转换、计算等。       |
+| `@PostPersist`   | 标记一个方法，在将实体对象持久化到数据库后自动调用该方法。可以在该方法中执行一些后处理操作，如发送通知、执行其他操作等。 |
+| `@PostUpdate`    | 标记一个方法，在更新实体对象到数据库后自动调用该方法。可以在该方法中执行一些后处理操作，如发送通知、执行其他操作等。   |
+| `@PostRemove`    | 标记一个方法，在从数据库删除实体对象后自动调用该方法。可以在该方法中执行一些后处理操作，如发送通知、执行其他操作等。   |
+| `@PreRemove`     | 标记一个方法，在删除实体对象之前自动调用该方法。可以在该方法中执行一些预处理操作，如释放资源、执行其他操作等。      |
+| `@PostConstruct` | 标记一个方法，在实例化实体对象后自动调用该方法。可以在该方法中执行一些初始化操作。                    |
+| `@PreDestroy`    | 标记一个方法，在销毁实体对象之前自动调用该方法。可以在该方法中执行一些清理操作。                     |
+
+这些注解可以用于实体类中的方法上，以定义在特定的生命周期阶段自动调用的自定义操作。你可以根据需求选择适合的注解来处理相应的业务逻辑。
+
+```java
+
+@MappedSuperclass
+@Getter
+@Setter
+public class BaseEntity {
+
+    @Column(columnDefinition = "DATETIME(0)")
+    private LocalDateTime createdAt;
+    @Column(columnDefinition = "DATETIME(0)")
+    private LocalDateTime updatedAt;
+    private Long createId;
+    private Long updateId;
+    private Boolean deleted;
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        createId = getUserIdSafely();
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+        updateId = getUserIdSafely();
+    }
+
+    @Transient
+    protected Long getUserIdSafely() {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return user.getId();
+    }
+}
+
+```
+
 ### Repository
 
 | 接口                         | 继承关系                            | 主要功能       | 示例方法                                                             |
