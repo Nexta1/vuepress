@@ -1,18 +1,36 @@
-# 时间类
+## Java
 
-## Date
+## Lambda
+
+Lambda表达式适合在以下场景中使用：
+
+1. 需要传递行为或动作的地方，比如作为函数式接口的参数或返回值。
+2. 需要简化代码的地方，特别是对于只包含单个抽象方法的接口，可以使用Lambda表达式代替匿名内部类。
+3. 需要使用函数式编程的特性，如集合的操作（如遍历、筛选、映射等）或并行处理等。
+
+## 时间类
+
+### Date
 
 java.util.Date：Date类是Java早期用于表示日期和时间的类，但它已经过时了，并且在Java 8及更高版本中不推荐使用。
 
 java.util.Calendar：Calendar类提供了对日期和时间进行操作的方法。它可以用于获取和设置年、月、日、时、分、秒等各个时间字段的值。
 
-## Java8
+### time
 
 java.time.LocalDate：LocalDate类表示一个日期，只包含年、月、日的信息，没有时间和时区。
 
 java.time.LocalTime：LocalTime类表示一个时间，只包含时、分、秒的信息，没有日期和时区。
 
 java.time.LocalDateTime：LocalDateTime类表示日期和时间，包含年、月、日、时、分、秒的信息，但没有时区。
+
+java.time.ZonedDateTime：ZonedDateTime类表示带有时区的日期和时间。
+
+java.time.Instant：Instant类表示时间戳，表示从Java纪元（1970年1月1日午夜UTC）开始的秒数。
+
+java.time.Duration：Duration类用于表示时间的持续时间，例如两个时间点之间的时间间隔。
+
+java.time.Period：Period类用于表示日期的持续时间，例如两个日期之间的天数、月数、年数。
 
 ### TimeUnit
 
@@ -40,15 +58,7 @@ public class DateTimeExample {
 }
 ```
 
-java.time.ZonedDateTime：ZonedDateTime类表示带有时区的日期和时间。
-
-java.time.Instant：Instant类表示时间戳，表示从Java纪元（1970年1月1日午夜UTC）开始的秒数。
-
-java.time.Duration：Duration类用于表示时间的持续时间，例如两个时间点之间的时间间隔。
-
-java.time.Period：Period类用于表示日期的持续时间，例如两个日期之间的天数、月数、年数。
-
-## 获取时间戳
+### 获取时间戳
 
 ```java
 class TimeStamp() {
@@ -64,7 +74,7 @@ class TimeStamp() {
 }
 ```
 
-## 时间戳转化
+### 时间戳转化
 
 ```java
 class Time() {
@@ -83,7 +93,7 @@ class Time() {
 }
 ```
 
-## 时间格式化
+### 时间格式化
 
 ```java
 public class DateTimeFormattingExample {

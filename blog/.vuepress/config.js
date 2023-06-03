@@ -19,11 +19,12 @@ module.exports = {
     ],
     "@vuepress/back-to-top",
     [
-      "vuepress-plugin-code-copy",
+      "vuepress-plugin-nuggets-style-copy",
       {
-        selector: 'div[class*="language-"] pre',
-        align: "bottom",
-        color: "#21CAA6",
+        copyText: "复制代码",
+        tip: {
+          content: "复制成功",
+        },
       },
     ],
   ],
@@ -67,10 +68,7 @@ module.exports = {
         items: [
           {
             text: "Spring",
-            items: [
-              { text: "Spring", link: "/spring/spring.md" },
-              { text: "SpringBoot", link: "/spring/springboot.md" },
-            ],
+            items: [{ text: "SpringBoot", link: "/spring/springboot.md" }],
           },
           {
             text: "常用集成",
