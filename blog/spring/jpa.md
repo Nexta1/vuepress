@@ -50,8 +50,6 @@ Spring Data JPA
 Data JPA 可以根据方法名自动生成查询。开发人员可以使用预定义的关键字（如
 findBy、deleteBy）以及属性表达式来构建查询方法。
 
-## 基本使用
-
 ```xml
 
 <dependency>
@@ -92,11 +90,9 @@ spring:
    时，验证创建数据库表结构，只会和数据库中的表进行比较，如果不同，就会报错。不会创建新表，但是会插入新值。
 5. none : 什么也不做。
 
-### Entity
+## Entity
 
-CrudRepository.save(…)。它通过使用底层 JPA 来持久化或合并给定的实体EntityManager。如果实体尚未持久化，Spring Data JPA
-会通过调用方法来保存实体entityManager.persist(…)。否则，它调用该entityManager.merge(…)方法
-当Java EE（现为Jakarta EE）中的`javax.persistence`包中常用的注解标注实体类时，可以使用Markdown表格形式总结如下：
+### 实体注解
 
 | 注解                    | 描述                                |
 |-----------------------|-----------------------------------|
@@ -126,7 +122,7 @@ CrudRepository.save(…)。它通过使用底层 JPA 来持久化或合并给定
 | `@NamedNativeQuery`   | 定义命名本地查询，用于在实体类上声明自定义的本地查询语句      |
 | `@NamedNativeQueries` | 用于在实体类上定义多个命名本地查询                 |
 
-除了 `@PrePersist` 和 `@PreUpdate` 注解，JPA 还提供了其他一些常用的生命周期回调注解，用于在实体对象的生命周期中执行自定义操作。以下是一些常用的注解：
+### 生命周期注解
 
 | 注解               | 描述                                                           |
 |------------------|--------------------------------------------------------------|
@@ -176,7 +172,7 @@ public class BaseEntity {
 
 ```
 
-### Repository
+## Repository
 
 | 接口                         | 继承关系                            | 主要功能       | 示例方法                                                             |
 |:---------------------------|---------------------------------|:-----------|------------------------------------------------------------------|
@@ -184,9 +180,7 @@ public class BaseEntity {
 | PagingAndSortingRepository | 继承自`CrudRepository`             | 分页和排序查询    | `findAll(Pageable pageable)`, `findAll(Sort sort)`, 等            |
 | JpaRepository              | 继承自`PagingAndSortingRepository` | 批量操作、刷新缓存等 | `saveAll(entities)`, `deleteAll()`, `flush()`, 等                 |
 
-### Query
-
-#### 1. 通过直接从方法名称派生查询。
+### 1. 通过直接从方法名称派生查询。
 
 ```java 
 // Query creation from method names
@@ -212,7 +206,7 @@ interface PersonRepository extends Repository<Person, Long> {
 }
 ```
 
-###### 1.1 分页和排序
+> 分页和排序
 
 ```java
 
@@ -246,35 +240,7 @@ spring:
 API 接受Sort并Pageable期望将非null值传递给方法。如果您不想应用任何排序或分页，请使用Sort.unsorted() Pageable.unpaged()。
 :::
 
-##### 1.2 其他方法
-
-```java
-interface PersonRepository extends Repository<Person, Long> {
-    Streamable<Person> findByFirstnameContaining(String firstname);
-
-    Streamable<Person> findByLastnameContaining(String lastname);
-
-    @Query("select u from User u")
-    Stream<User> findAllByCustomQueryAndStream();
-
-    Stream<User> readAllByFirstnameNotNull();
-
-    @Query("select u from User u")
-    Stream<User> streamAllPaged(Pageable pageable);
-
-    @Async
-    Future<User> findByFirstname(String firstname);
-
-    @Async
-    CompletableFuture<User> findOneByFirstname(String firstname);
-
-
-}
-
-
-```
-
-#### 2. 通过使用手动定义的查询。
+### 2. 通过使用手动定义的查询。
 
 ```java
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -337,6 +303,27 @@ public interface UserRepository extends JpaRepository<User, Long> {
 - 如果使用命名参数进行参数绑定，需要在方法参数上使用`@Param`
   注解指定参数名。例如：`@Query("SELECT u FROM User u WHERE u.username = :username") List<User> findByUsername(@Param("username") String username);`
 - 如果查询结果为实体类对象，需要确保实体类和查询结果的属性对应关系正确，可以使用构造函数表达式或`new`关键字进行映射。
+
+### 3. Specification
+
+Specification 是 Spring Data JPA 提供的一种查询条件封装机制，用于构建动态查询条件。它可以帮助你以一种类型安全的方式创建复杂的查询条件，并将它们应用于查询方法中。
+Specification 接口定义了一个方法 `toPredicate`，用于将 Specification 对象转换为 Predicate 对象，Predicate
+表示一个查询条件。你可以在 `toPredicate` 方法中使用 Criteria API 或者其他方式构建查询条件，并返回一个 Predicate 对象。
+
+通过使用 Specification，你可以实现以下功能：
+
+1. 构建动态查询条件：Specification 允许你根据不同的条件构建动态的查询条件。你可以根据请求参数、业务逻辑或者其他条件来决定查询条件的构建方式，从而灵活地生成不同的查询。
+
+2. 类型安全：Specification 在编译时进行类型检查，避免了手动拼接字符串或者使用原生的 SQL 查询。这提高了代码的可读性和可维护性，并减少了潜在的错误。
+
+3. 代码复用：通过将查询条件封装为 Specification 对象，你可以在多个查询方法中重复使用它们。这样，你可以避免重复编写相似的查询条件，提高了代码的重用性。
+   通过 Specification，你可以将查询条件与查询方法解耦，实现更灵活、可复用的查询操作。它是构建动态查询的一种强大工具，可以应对不同的查询需求。
+
+### 4. Example
+
+不支持嵌套或分组的属性约束，如 firstname = ?0 or (firstname = ?1 and lastname = ?2).。
+
+对于字符串只支持 开始/包含/结束/regex 匹配，对于其他属性类型支持精确匹配。
 
 ## 事务
 
