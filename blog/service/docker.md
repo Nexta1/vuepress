@@ -74,6 +74,15 @@ docker run -d \
   redis redis-server /etc/redis/redis.conf
 ```
 
+```shell
+docker run -d \
+  --name redis \
+  -p 6379:6379 \
+  -v ~/docker/redis/data:/data \
+  -v ~/docker/redis/conf/redis.conf:/etc/redis/redis.conf \
+  redis redis-server /etc/redis/redis.conf
+```
+
 ## Compose
 
 ## File

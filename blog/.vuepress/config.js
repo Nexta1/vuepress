@@ -130,6 +130,10 @@ module.exports = {
             text: "Tech",
             link: "/more/technology.md",
           },
+          {
+            text: "Chat",
+            link: "/more/chat.md",
+          },
         ],
       },
       {
